@@ -37,7 +37,7 @@ module.exports = function (grunt) {
       },<% } else { %>
       js: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['ngdocs', 'newer:jshint:all'],
         options: {
           livereload: true
         }
@@ -393,6 +393,13 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
+    },
+    ngdocs: {
+      options: {
+        dest: '.tmp/docs',
+        html5Mode: false
+      },
+      api: ['<%%= yeoman.app %>/scripts/{,*/}*.js'],
     }
   });
 
@@ -407,6 +414,7 @@ module.exports = function (grunt) {
       'bower-install',
       'concurrent:server',
       'autoprefixer',
+      'ngdocs',
       'connect:livereload',
       'watch'
     ]);
