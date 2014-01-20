@@ -45,7 +45,7 @@ module.exports = function (grunt) {
       },<% } else { %>
       js: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['ngdocs', 'newer:jshint:all'],
         options: {
           livereload: true
         }
@@ -431,6 +431,13 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
+    },
+    ngdocs: {
+      options: {
+        dest: '.tmp/docs',
+        html5Mode: false
+      },
+      api: ['<%%= yeoman.app %>/scripts/{,*/}*.js'],
     }
   });
 
@@ -445,14 +452,15 @@ module.exports = function (grunt) {
       'bower-install',
       'concurrent:server',
       'autoprefixer',
+      'ngdocs',
       'connect:livereload',
       'watch'
     ]);
   });
 
-  grunt.registerTask('server', function () {
+  grunt.registerTask('server', function (target) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run(['serve']);
+    grunt.task.run(['serve:' + target]);
   });
 
   grunt.registerTask('test', [
