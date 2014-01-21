@@ -20,5 +20,12 @@ module <%= scriptAppName %> {
 }
 
 
+/**
+ * @ngdoc service
+ * @name <%= scriptAppName %>.<%= cameledName %>
+ * @description
+ * # <%= cameledName %>
+ * Provider in the <%= scriptAppName %>.
+ */
 angular.module('<%= scriptAppName %>')
   .provider('<%= cameledName %>', <%= scriptAppName %>.<%= classedName %>Provider);

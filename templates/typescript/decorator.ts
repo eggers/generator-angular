@@ -14,5 +14,12 @@ module <%= scriptAppName %> {
   }
 }
 
+/**
+ * @ngdoc function
+ * @name <%= scriptAppName %>.decorator:<%= classedName %>
+ * @description
+ * # <%= classedName %>Ctrl
+ * Decorator of the <%= scriptAppName %>
+ */
 angular.module('<%= scriptAppName %>')
   .config(<%= scriptAppName %>.<%= cameledName %>DecoratorProvider);
