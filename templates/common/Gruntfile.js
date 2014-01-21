@@ -438,8 +438,7 @@ module.exports = function (grunt) {
         dest: '.tmp/docs',
         html5Mode: false
       },
-      api: ['<% if (coffee || typescript) { %>.tmp<% } else {%><%%= yeoman.app %><% }%>/scripts/{,*/}*.js'],
-          
+      api: ['<%%= yeoman.app %>/scripts/{,*/}*.js'<% if (coffee || typescript) { %>, '.tmp/scripts/{,*/}*.js'<%}%> ],
     }
   });
 
