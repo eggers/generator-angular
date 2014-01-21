@@ -179,6 +179,7 @@ module.exports = function (grunt) {
           target: 'es5', //or es3
           'base_path': '<%%= yeoman.app %>/scripts', //quoting base_path to get around jshint warning.
           sourcemap: true,
+          comments: true,
           declaration: true
         }
       },
@@ -437,7 +438,8 @@ module.exports = function (grunt) {
         dest: '.tmp/docs',
         html5Mode: false
       },
-      api: ['<%%= yeoman.app %>/scripts/{,*/}*.js'],
+      api: ['<% if (coffee || typescript) { %>.tmp<% } else {%><%%= yeoman.app %><% }%>/scripts/{,*/}*.js'],
+          
     }
   });
 
