@@ -37,7 +37,10 @@ module.exports = function (grunt) {
       },<% } else if (typescript) { %>
       typescript: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.ts'],
-        tasks: ['typescript:base']
+        tasks: ['typescript:base'],
+        options: {
+          spawn: false
+        }
       },
       typescriptTest: {
         files: ['test/spec/{,*/}*.ts'],
@@ -71,8 +74,9 @@ module.exports = function (grunt) {
         },
         files: [
           '<%%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',<% if (coffee || typescript) { %>
-          '.tmp/scripts/{,*/}*.js',<% } %>
+          '.tmp/styles/{,*/}*.css',<% if (coffee) { %>
+          '.tmp/scripts/{,*/}*.js',<% } %><% if (typescript) { %>
+          '<%%= yeoman.app %>/scripts/{,*/}*.ts',<% } %>
           '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -494,4 +498,16 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+  <% if (typescript) { %>
+  //Only recompile the ts files that have actually changed.
+  var changedFiles = Object.create(null);
+  var onChange = grunt.util._.debounce(function () {
+    grunt.config('typescript.base.src', Object.keys(changedFiles));
+    changedFiles = Object.create(null);
+  }, 200);
+  grunt.event.on('watch', function (action, filepath) {
+    changedFiles[filepath] = action;
+    onChange();
+  });
+  <% } %>
 };
